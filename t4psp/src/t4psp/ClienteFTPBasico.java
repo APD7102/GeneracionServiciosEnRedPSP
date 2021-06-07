@@ -46,20 +46,20 @@ public class ClienteFTPBasico extends JFrame
 	private static JTextField txtArbolDirectoriosConstruido = new JTextField();
 	private static JTextField txtActualizarDirectorio = new JTextField();
 	private static JTextField txtInformación = new JTextField();
-	// Botones
-	JButton botonCargarArchivo = new JButton("Subir fichero");
-	JButton botonDescargar = new JButton("Descargar fichero");
-	JButton botonBorrarArchivo = new JButton("Eliminar fichero");
-	JButton botonCreaCarpeta = new JButton("Crear carpeta");
-	JButton botonBorrarCarpeta = new JButton("Eliminar carpeta");
-	JButton botonSalir = new JButton("Salir");
-	JButton botonVolver = new JButton("Volver");
-	JButton botonRenombrarDirectorio = new JButton("Renombrar Directorio");
-	JButton botonRenombrarArchivo = new JButton("Renombrar Archivo");
+	// btnes
+	JButton btnCargarArchivo = new JButton("Subir fichero");
+	JButton btnDescargar = new JButton("Descargar fichero");
+	JButton btnBorrarArchivo = new JButton("Eliminar fichero");
+	JButton btnCreaCarpeta = new JButton("Crear carpeta");
+	JButton btnBorrarCarpeta = new JButton("Eliminar carpeta");
+	JButton btnSalir = new JButton("Salir");
+	JButton btnVolver = new JButton("Volver");
+	JButton btnRenombrarDirectorio = new JButton("Renombrar Directorio");
+	JButton btnRenombrarArchivo = new JButton("Renombrar Archivo");
 	// Lista para los datos del directorio
 	static JList<String> listaDirec = new JList<String>();
 	// contenedor
-	private final Container c = getContentPane();
+	private final Container ventana = getContentPane();
 	// Datos del servidor FTP - Servidor local
 	static FTPClient cliente = new FTPClient();// cliente FTP
 	String servidor = "127.0.0.1";
@@ -109,23 +109,22 @@ public class ClienteFTPBasico extends JFrame
 		JScrollPane barraDesplazamiento = new JScrollPane(listaDirec);
 		barraDesplazamiento.setPreferredSize(new Dimension(335, 420));
 		barraDesplazamiento.setBounds(new Rectangle(5, 65, 335, 420));
-		c.add(barraDesplazamiento);
-		c.add(txtServidor);
-		c.add(txtUsuario);
-		c.add(txtDirectorioRaiz);		
-		c.add(txtActualizarDirectorio);
-		c.add(txtArbolDirectoriosConstruido);
-		c.add(txtInformación);
-		c.add(botonVolver);		
-		c.add(botonCargarArchivo);
-		c.add(botonCreaCarpeta);
-		c.add(botonBorrarCarpeta);
-		c.add(botonBorrarArchivo);
-		c.add(botonRenombrarDirectorio);
-		c.add(botonRenombrarArchivo);		
-		c.add(botonDescargar);			
-		c.add(botonSalir);
-		c.setLayout(null);
+		ventana.add(barraDesplazamiento);
+		ventana.add(txtServidor);
+		ventana.add(txtDirectorioRaiz);		
+		ventana.add(txtActualizarDirectorio);
+		ventana.add(txtArbolDirectoriosConstruido);
+		ventana.add(txtInformación);
+		ventana.add(btnVolver);		
+		ventana.add(btnCargarArchivo);
+		ventana.add(btnCreaCarpeta);
+		ventana.add(btnBorrarCarpeta);
+		ventana.add(btnBorrarArchivo);
+		ventana.add(btnRenombrarDirectorio);
+		ventana.add(btnRenombrarArchivo);		
+		ventana.add(btnDescargar);			
+		ventana.add(btnSalir);
+		ventana.setLayout(null);
 		// se añaden el resto de los campos de pantalla
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
@@ -134,7 +133,7 @@ public class ClienteFTPBasico extends JFrame
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-		// Acciones al pulsar en la lista o en los botones
+		// Acciones al pulsar en la lista o en los btnes
 		listaDirec.addListSelectionListener(new ListSelectionListener()
 		{
 			@Override
@@ -213,7 +212,7 @@ public class ClienteFTPBasico extends JFrame
 
 		});
 
-		botonSalir.addActionListener(new ActionListener()
+		btnSalir.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -228,7 +227,7 @@ public class ClienteFTPBasico extends JFrame
 				System.exit(0);
 			}
 		});
-		botonCreaCarpeta.addActionListener(new ActionListener()
+		btnCreaCarpeta.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -266,7 +265,7 @@ public class ClienteFTPBasico extends JFrame
 				} // final del if
 			}
 		}); // final del botón CreaDir
-		botonRenombrarDirectorio.addActionListener(new ActionListener()
+		btnRenombrarDirectorio.addActionListener(new ActionListener()
 		{
 
 			@Override
@@ -320,7 +319,7 @@ public class ClienteFTPBasico extends JFrame
 				}
 			}
 		});// Botón renombrar directorio
-		botonRenombrarArchivo.addActionListener(new ActionListener()
+		btnRenombrarArchivo.addActionListener(new ActionListener()
 		{
 
 			@Override
@@ -373,7 +372,7 @@ public class ClienteFTPBasico extends JFrame
 				}
 			}
 		});// Botón renombrar archivo
-		botonBorrarCarpeta.addActionListener(new ActionListener()
+		btnBorrarCarpeta.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -422,31 +421,31 @@ public class ClienteFTPBasico extends JFrame
 			}
 		});
 		// final del botón Eliminar Carpeta
-		botonCargarArchivo.addActionListener(new ActionListener()
+		btnCargarArchivo.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				JFileChooser f;
+				JFileChooser jfc;
 				File file;
-				f = new JFileChooser();
+				jfc = new JFileChooser();
 				// solo se pueden seleccionar ficheros
-				f.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				// título de la ventana
-				f.setDialogTitle("Selecciona el fichero a subir al servidor FTP");
+				jfc.setDialogTitle("Selecciona el fichero a subir al servidor FTP");
 				// se muestra la ventana
-				int returnVal = f.showDialog(f, "Cargar");
+				int returnVal = jfc.showDialog(jfc, "Cargar");
 				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
 					// fichero seleccionado
-					file = f.getSelectedFile();
+					file = jfc.getSelectedFile();
 					// nombre completo del fichero
 					String archivo = file.getAbsolutePath();
 					// solo nombre del fichero
 					String nombreArchivo = file.getName();
 					try
 					{
-						SubirFichero(archivo, nombreArchivo);
+						Subir(archivo, nombreArchivo);
 					} catch (IOException e1)
 					{
 						e1.printStackTrace();
@@ -454,7 +453,7 @@ public class ClienteFTPBasico extends JFrame
 				}
 			}
 		}); // Fin botón subir
-		botonDescargar.addActionListener(new ActionListener()
+		btnDescargar.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -464,11 +463,11 @@ public class ClienteFTPBasico extends JFrame
 					directorio = directorio + "/";
 				if (!direcSelec.equals(""))
 				{
-					DescargarFichero(directorio + ficheroSelec, ficheroSelec);
+					Descargar(directorio + ficheroSelec, ficheroSelec);
 				}
 			}
 		}); // Fin botón descargar
-		botonBorrarArchivo.addActionListener(new ActionListener()
+		btnBorrarArchivo.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -480,14 +479,14 @@ public class ClienteFTPBasico extends JFrame
 				if (!direcSelec.equals(""))
 				{
 
-					BorrarFichero(directorio + ficheroSelec, ficheroSelec);
+					Borrar(directorio + ficheroSelec, ficheroSelec);
 
 				}
 			}
 		});
 
 		
-		botonVolver.addActionListener(new ActionListener()
+		btnVolver.addActionListener(new ActionListener()
 		{
 
 			@Override
@@ -507,8 +506,8 @@ public class ClienteFTPBasico extends JFrame
 		if (files == null)
 			return;
 		// se crea un objeto DefaultListModel
-		DefaultListModel<String> modeloLista = new DefaultListModel<String>();
-		modeloLista = new DefaultListModel<String>();
+		DefaultListModel<String> lista = new DefaultListModel<String>();
+		lista = new DefaultListModel<String>();
 		// se definen propiedades para la lista, color y tipo de fuente
 
 		listaDirec.setForeground(Color.blue);
@@ -539,25 +538,25 @@ public class ClienteFTPBasico extends JFrame
 				if (files[i].isDirectory())
 					f = "(DIR) " + f;
 				// se añade el nombre del fichero o directorio al listmodel
-				modeloLista.addElement(f);
+				lista.addElement(f);
 			} // fin if
 		} // fin for
 		try
 		{
 			// se asigna el listmodel al JList,
 			// se muestra en pantalla la lista de ficheros y direc
-			listaDirec.setModel(modeloLista);
+			listaDirec.setModel(lista);
 		} catch (NullPointerException n)
 		{
 			; // Se produce al cambiar de directorio
 		}
 	}// Fin llenarLista
 
-	private boolean SubirFichero(String archivo, String soloNombre) throws IOException
+	private boolean Subir(String archivo, String soloNombre) throws IOException
 	{
 		cliente.setFileType(FTP.BINARY_FILE_TYPE);
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(archivo));
-		boolean ok = false;
+		boolean correcto = false;
 		// directorio de trabajo actual
 		cliente.changeWorkingDirectory(direcSelec);
 		if (cliente.storeFile(soloNombre, in))
@@ -571,34 +570,34 @@ public class ClienteFTPBasico extends JFrame
 			ff2 = cliente.listFiles();
 			// llenar la lista con los ficheros del directorio actual
 			llenarLista(ff2, direcSelec);
-			ok = true;
+			correcto = true;
 		} else
 			txtInformación.setText("No se ha podido subir... " + soloNombre);
-		return ok;
+		return correcto;
 	}// final de SubirFichero
 
-	private void DescargarFichero(String NombreCompleto, String nombreFichero)
+	private void Descargar(String NombreCompleto, String nombreFichero)
 	{
 		File file;
-		String archivoyCarpetaDestino = "";
+		String ruta = "";
 		String carpetaDestino = "";
-		JFileChooser f = new JFileChooser();
+		JFileChooser jfc = new JFileChooser();
 		// solo se pueden seleccionar directorios
-		f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		// título de la ventana
-		f.setDialogTitle("Selecciona el Directorio donde Descargar el Fichero");
-		int returnVal = f.showDialog(null, "Descargar");
+		jfc.setDialogTitle("Selecciona el Directorio donde Descargar el Fichero");
+		int returnVal = jfc.showDialog(null, "Descargar");
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
-			file = f.getSelectedFile();
+			file = jfc.getSelectedFile();
 			// obtener carpeta de destino
 			carpetaDestino = (file.getAbsolutePath()).toString();
 			// construimos el nombre completo que se creará en nuestro disco
-			archivoyCarpetaDestino = carpetaDestino + File.separator + nombreFichero;
+			ruta = carpetaDestino + File.separator + nombreFichero;
 			try
 			{
 				cliente.setFileType(FTP.BINARY_FILE_TYPE);
-				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(archivoyCarpetaDestino));
+				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(ruta));
 				if (cliente.retrieveFile(NombreCompleto, out))
 					JOptionPane.showMessageDialog(null, nombreFichero + " => Se ha descargado correctamente ...");
 				else
@@ -611,7 +610,7 @@ public class ClienteFTPBasico extends JFrame
 		}
 	} // Final de DescargarFichero
 
-	private void BorrarFichero(String NombreCompleto, String nombreFichero)
+	private void Borrar(String NombreCompleto, String nombreFichero)
 	{
 
 		if (ficheroSelec.contains("(DIR)"))
@@ -621,8 +620,8 @@ public class ClienteFTPBasico extends JFrame
 
 		} else
 		{
-			int seleccion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el fichero seleccionado?");
-			if (seleccion == JOptionPane.OK_OPTION)
+			int elegir = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el fichero seleccionado?");
+			if (elegir == JOptionPane.OK_OPTION)
 			{
 
 				try
